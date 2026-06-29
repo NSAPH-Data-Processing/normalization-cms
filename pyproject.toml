@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "normalizecms"
+version = "0.1.0"
+description = "DuckDB-based pipeline for normalizing CMS data"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "duckdb",
+    "pyyaml",
+    "hydra-core",
+    "omegaconf",
+]
+
+[tool.setuptools]
+packages = ["normalizecms"]
+
+[project.scripts]
+create_dir_paths = "normalizecms.create_dir_paths:main"

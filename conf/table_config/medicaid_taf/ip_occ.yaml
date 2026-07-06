@@ -1,0 +1,18 @@
+title: Medicaid TAF Normalization - IP Occurrence
+description: Inpatient claim occurrence records for Medicaid TAF normalization.
+
+name: ip_occ
+path_pattern: "${datapaths.dirs.input}/${year}/taf_inpatient_occurrence_*/part-*.parquet"
+output_name: "ip_occ_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+columns:
+  - bene_id
+  - msis_id
+  - state_cd
+  # - submitting_state
+  - clm_id
+  - ocrnc_cd_seq
+  - ocrnc_cd
+  - ocrnc_cd_start_dt
+  - ocrnc_cd_end_dt

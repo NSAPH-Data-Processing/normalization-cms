@@ -1,0 +1,50 @@
+title: Medicaid TAF Normalization - IP Line
+description: Inpatient claim line records for Medicaid TAF normalization.
+
+name: ip_line
+path_pattern: "${datapaths.dirs.input}/${year}/taf_inpatient_line_*/part-*.parquet"
+output_name: "ip_line_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+columns:
+  - bene_id
+  - msis_id
+  - state_cd
+  # - submitting_state
+  - clm_id
+  - line_num
+  - clm_num_orig
+  - line_num_orig
+  - clm_num_adj
+  - line_num_adj
+  - adjdctn_dt
+  - line_claim_stus_cd
+  - line_adjust_cd
+  - line_srvc_bgn_dt
+  - line_srvc_end_dt
+  - bnft_type_cd
+  - tos_cd
+  - xix_srvc_ctgry_cd
+  - xxi_srvc_ctgry_cd
+  - cms_64_fed_ctgry_cd
+  - rev_cntr_cd
+  - actl_srvc_qty
+  - alowd_srvc_qty
+  - ndc
+  - ndc_uom_cd
+  - ndc_qty
+  - imnztn_type_cd
+  - prvdr_fac_type_cd
+  - srvc_prvdr_id
+  - srvc_prvdr_npi
+  - srvc_prvdr_txnmy_cd
+  - srvc_prvdr_type_cd
+  - srvc_prvdr_spclty_cd
+  - oprtg_prvdr_npi
+  - rev_cntr_chrg_amt
+  - line_mdcd_alowd_amt
+  - line_mdcd_pd_amt
+  - line_mdcd_ffs_equiv_amt
+  - line_othr_insrnc_pd_amt
+  - ip_accmdtn_hcpcs_rate
+  - da_run_id
+  - tmsis_run_id

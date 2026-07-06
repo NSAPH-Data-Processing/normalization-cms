@@ -1,0 +1,32 @@
+title: Medicaid TAF Normalization - Eligibility
+description: >
+  Eligibility criteria from the demographic eligibility base file.
+  Primary keys are bene_id, bene_state_cd, year, month.
+
+name: eligibility
+path_pattern: "${datapaths.dirs.input}/${year}/taf_demog_elig_base_*/part-*.parquet"
+output_name: "eligibility_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+explode_arrays: true   # explodes 12-element monthly arrays into one row per month
+period_col: month
+n_periods: 12
+
+columns:
+  - bene_id
+  - msis_id
+  # - year
+  - state_cd
+  - bene_state_cd
+  # - submitting_state
+# Monthly array columns: exploded to one row per bene-state-year-month
+  # - mdcd_enrlmt_days
+  # - chip_enrlmt_days
+  # - chip_cds
+  # - rstrctd_bnfts_cd
+  # - dual_elgbl_cd
+  # - elgblty_grp_cd
+  # - masboe_cd
+  # - state_spec_elgblty_grp_cd
+  # - mc_plan_type_cd
+  # - elgblty_chg_rsn_cd

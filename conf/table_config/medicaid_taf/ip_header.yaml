@@ -1,0 +1,42 @@
+title: Medicaid TAF Normalization - IP Header
+description: Inpatient header table for Medicaid TAF normalization.
+
+name: ip_header
+path_pattern: "${datapaths.dirs.input}/${year}/taf_inpatient_header_res000017155_*/part-*.parquet"
+output_name: "ip_header_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+columns:
+  - bene_id
+  - msis_id
+  - state_cd
+  # - submitting_state
+  - clm_id
+  - clm_num_orig
+  - clm_num_adj
+  - clm_type_cd
+  - bill_type_cd
+  - crossover_clm_ind
+  - adjust_cd
+  - srvc_bgn_dt
+  - srvc_end_dt
+  - admsn_dt
+  - dschrg_dt
+  - ptnt_dschrg_stus_cd
+  - admtg_dgns_cd
+  # - primary_diagnosis
+  # - diagnoses
+  # - dgns_vrsn_cds
+  # - dgns_poa_inds
+  - drg_cd
+  # - procedures
+  # - prcdr_cd_sys
+  # - prcdr_cd_dts
+  - admtg_prvdr_npi
+  - blg_prvdr_npi
+  - mdcd_pd_amt
+  - mdcd_alowd_amt
+  - billed_amt
+  # - ip_accmdtn_hcpcs_rate
+  - da_run_id
+  - tmsis_run_id
+  - ccw_ld_dt

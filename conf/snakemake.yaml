@@ -1,0 +1,8 @@
+# CMS normalization pipeline — Snakemake configuration.
+# Run with: snakemake --cores all
+#
+# Override at the CLI with --config:
+#   snakemake --config dataset=medicaid_max datapaths=medicaid_max
+
+dataset:   medicaid_taf
+datapaths: medicaid_taf_red

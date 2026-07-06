@@ -1,0 +1,73 @@
+title: Medicaid TAF Normalization - Enrollments
+description: >
+  Enrollment variables from the demographic eligibility base file for a
+  beneficiary in a given year. Primary keys are bene_id, bene_state_cd, year.
+
+name: enrollments
+path_pattern: "${datapaths.dirs.input}/${year}/taf_demog_elig_base_*/part-*.parquet"
+output_name: "enrollment_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+columns:
+  - bene_id
+  - msis_id
+  - year
+  - state_cd
+  # - submitting_state
+  - bene_state_cd
+  - misg_elgblty_data_ind
+  - misg_enrlmt_type_ind
+  - bene_zip_cd
+  - bene_cnty_cd
+  - age_grp_cd
+  - death_ind
+  - mdcd_enrlmt_days_yr
+  - chip_enrlmt_days_yr
+  - chip_cd_ltst
+  - rstrctd_bnfts_cd_ltst
+  - dual_elgbl_cd_ltst
+  - elgblty_grp_cd_ltst
+  - masboe_cd_ltst
+  - state_spec_elgblty_grp_cd_ltst
+  - mrtl_stus_cd
+  - hsehld_size_cd
+  - incm_cd
+  - vet_ind
+  - prmry_lang_grp_cd
+  - prmry_lang_cd
+  - englsh_lang_prfcncy_cd
+  - ctznshp_ind
+  - ctznshp_vrfctn_pendg_ind
+  - imgrtn_stus_cd
+  - imgrtn_vrfctn_pendg_ind
+  - imgrtn_stus_5yr_bar_end_dt
+  - care_lvl_stus_cd
+  - dsblty_deaf_ind
+  - dsblty_blnd_ind
+  - dsblty_dfclty_cncntrtng_ind
+  - dsblty_dfclty_wlkg_ind
+  - dsblty_dfclty_drsng_bathng_ind
+  - dsblty_dfclty_ernds_ind
+  - dsblty_othr_ind
+  - birth_cncptn_ind
+  - ssdi_ind
+  - ssi_ind
+  - ssi_stus_cd
+  - ssi_state_splmt_cd
+  - tanf_cash_cd
+  - tpl_insrnc_cvrg_ind
+  - tpl_othr_cvrg_ind
+  - msis_case_num
+  - splmtl_dts
+  - splmtl_mc
+  - splmtl_wvr
+  - splmtl_hlth_home_spo
+  - splmtl_mfp
+  - splmtl_dsb_hcbs
+  - splmtl_dsb_ltss
+  - splmtl_dsb_lckin
+  - splmtl_dsb_othr
+  - da_run_id
+  - de_vrsn
+  - ccw_ld_dt
+  - elgbl_aftr_eoy_ind

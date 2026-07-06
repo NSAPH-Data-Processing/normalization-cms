@@ -1,0 +1,20 @@
+title: Medicaid TAF Normalization - Beneficiaries
+description: >
+  All beneficiaries enrolled in Medicaid/CHIP at any point from 2014-2018.
+  Note: for 2014-2016 only beneficiaries in states using TMSIS are present;
+  the remaining beneficiaries are in the MAX files.
+
+name: beneficiaries
+path_pattern: "${datapaths.dirs.input}/${year}/taf_demog_elig_base_*/part-*.parquet"
+output_name: "beneficiaries_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+columns:
+  - bene_id
+  - birth_dt
+  - death_dt
+  - sex_cd
+  - ethncty_cd
+  - race_ethncty_cd
+  - race_ethncty_exp_cd
+  - crtfd_amrcn_indn_alskn_ntv_cd

@@ -1,0 +1,30 @@
+name: pde
+description: >
+  Event-level Part D Prescription Drug Event (PDE) records, one row per
+  prescription drug event, for 2016-2018. Primary key is pde_id. 
+path_pattern: "${datapaths.dirs.input}/partd_pde_${year}.parquet"
+output_name: "pde_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+columns:
+  - pde_id
+  - bene_id
+  - rx_service_date
+  - year
+  - paid_date
+  - product_service_id
+  - qty_dispensed_num
+  - days_suply_num
+  - fill_num
+  - drug_coverage_status
+  - gdc_blw_oopt_amt
+  - gdc_abv_oopt_amt
+  - patnt_pay_amt
+  - othr_troop_amt
+  - lics_amt
+  - plro_amt
+  - cvrd_d_plan_pd_amt
+  - ncvrd_plan_pd_amt
+  - tot_rx_cst_amt
+  - benefit_phase
+  - rptd_gap_dscnt_num
+  - brnd_gnrc_cd

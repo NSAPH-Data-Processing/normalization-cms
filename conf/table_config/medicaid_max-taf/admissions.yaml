@@ -1,0 +1,27 @@
+title: Medicaid MAX-TAF Normalization - Admissions
+description: Inpatient hospitalization table for Medicaid MAX-TAF normalization.
+
+name: admissions
+path_pattern: "${datapaths.dirs.input}/inpatient/ip_${year}.parquet"
+output_name: "admissions_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+columns:
+  - bene_id
+  - msis_id
+  - claim_id
+  - year
+  - state
+  - admission_date
+  - srvc_bgn_dt
+  - srvc_end_dt
+  - primary_diagnosis
+  - diagnoses
+  - diagnosis_version_cd
+  - procedures
+  - mdcd_cvrd_days
+  - mdcd_pymt_amt
+  - drg_rel_group
+  - filename
+  - source_type
+  - patient_status_cd
+  - adjustment_cd

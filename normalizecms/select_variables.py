@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import time
 import logging
 
@@ -40,13 +41,13 @@ def load_parquet_files(con: duckdb.DuckDBPyConnection, parquet_files: list[str])
 
 
 def build_working_table(con: duckdb.DuckDBPyConnection, config: dict) -> None:
+    # Apply column selection to 'raw', write result to 'working'.
     expressions = build_select_expressions(config)
-    select_list = ",\n            ".join(expressions)
-
+    expressions_sql = ",\n            ".join(expressions)
     con.execute(f"""
         CREATE OR REPLACE TABLE working AS
         SELECT
-            {select_list},
+            {expressions_sql},
             filename
         FROM raw
     """)
@@ -87,6 +88,48 @@ def explode_arrays(con: duckdb.DuckDBPyConnection, period_col: str = "month", n_
     LOGGER.info(f"Exploded to {row_count:,} rows (working rows x {n_periods} periods)")
 
 
+def unpivot_monthly(
+    con: duckdb.DuckDBPyConnection,
+    month_col: str = "month",
+    n_months: int = 12,
+    pattern: str = r"^(.+)_mo_(\d{2})$",
+) -> None:
+    # Unpivot wide monthly columns into long format.
+    # `pattern` must be a regex with two capture groups: (base_name, month_number).
+    # Default matches *_mo_NN (e.g. dual_eligibility_mo_01).
+    cols = [row[1] for row in con.execute("PRAGMA table_info('working')").fetchall()]
+    pat  = re.compile(pattern)
+
+    base_cols: dict[str, dict[int, str]] = {}  # base_name → {month: column_name}
+    static_cols: list[str] = []
+    for c in cols:
+        m = pat.match(c)
+        if m:
+            base_cols.setdefault(m.group(1), {})[int(m.group(2))] = c
+        elif c != "filename":
+            static_cols.append(c)
+
+    if not base_cols:
+        raise ValueError(
+            "'monthly_columns' is set but no *_mo_NN columns were found in 'working'."
+        )
+
+    LOGGER.info(f"Static columns  : {static_cols}")
+    LOGGER.info(f"Monthly groups  : {list(base_cols)}")
+
+    static_sql = ", ".join(static_cols)
+    parts = []
+    for mo in range(1, n_months + 1):
+        monthly_sql = ", ".join(
+            f"{base_cols[b].get(mo, 'NULL')} AS {b}" for b in base_cols
+        )
+        parts.append(f"SELECT {static_sql}, {mo} AS {month_col}, {monthly_sql} FROM working")
+
+    con.execute("CREATE OR REPLACE TABLE unpivoted AS " + " UNION ALL ".join(parts))
+    row_count = con.execute("SELECT COUNT(*) FROM unpivoted").fetchone()[0]
+    LOGGER.info(f"Unpivoted to {row_count:,} rows (working rows x {n_months} months)")
+
+
 def process_year(year: int, table_name: str, config: dict) -> str:
     """
     Main orchestration: glob resolved input files -> load -> transform -> (optionally) explode -> write.
@@ -103,11 +146,13 @@ def process_year(year: int, table_name: str, config: dict) -> str:
     LOGGER.info(f"Table: {table_name} | Year: {year}")
     LOGGER.info(f"{'='*60}")
 
-    output_name    = config.get("output_name", f"{table_name}_{year}")
-    output_dir     = config["output_dir"]
-    should_explode = config.get("explode_arrays", False)
-    period_col     = config.get("period_col", "month")
-    n_periods      = config.get("n_periods", 12)
+    output_name       = config.get("output_name", f"{table_name}_{year}")
+    output_dir        = config["output_dir"]
+    should_explode    = config.get("explode_arrays", False)
+    should_unpivot    = config.get("monthly_columns", False)
+    period_col        = config.get("period_col", "month")
+    n_periods         = config.get("n_periods", 12)
+    monthly_pattern   = config.get("monthly_pattern", r"^(.+)_mo_(\d{2})$")
 
     LOGGER.info("\n[1/4] Resolving input files...")
     parquet_files = glob_parquet_files(config["path_pattern"])
@@ -125,8 +170,12 @@ def process_year(year: int, table_name: str, config: dict) -> str:
             LOGGER.info(f"\n[4/4] Exploding arrays → one row per {period_col}...")
             explode_arrays(con, period_col=period_col, n_periods=n_periods)
             final_table = "exploded"
+        elif should_unpivot:
+            LOGGER.info(f"\n[4/4] Unpivoting monthly columns → one row per {period_col}...")
+            unpivot_monthly(con, month_col=period_col, n_months=n_periods, pattern=monthly_pattern)
+            final_table = "unpivoted"
         else:
-            LOGGER.info("\n[4/4] Skipping array explode (explode_arrays: false)")
+            LOGGER.info("\n[4/4] No reshape configured (explode_arrays/monthly_columns: false)")
             final_table = "working"
 
         row_count = con.execute(f"SELECT COUNT(*) FROM {final_table}").fetchone()[0]

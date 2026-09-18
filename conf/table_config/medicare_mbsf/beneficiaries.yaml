@@ -1,0 +1,17 @@
+title: Medicare MBSF Normalization - Beneficiaries
+description: >
+  All beneficiaries enrolled in Medicare MBSF at any point from 2000-2022.
+
+name: beneficiaries
+path_pattern: "${datapaths.dirs.input}/ps/ps_${year}.parquet"
+output_name: "beneficiaries_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+columns:
+  - bene_id
+  - dob
+  - dod
+  - sex
+  - race
+  - race_rti
+  - orec

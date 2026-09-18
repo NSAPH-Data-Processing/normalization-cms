@@ -1,0 +1,117 @@
+title: Medicaid MAX-TAF Normalization - Eligibility
+description: >
+  Yearly enrollment information for Medicaid beneficiaries 1998-2018
+
+name: eligibility
+path_pattern: "${datapaths.dirs.input}/patient_summary/ps_${year}.parquet"
+output_name: "eligibility_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+monthly_columns: true
+period_col: month
+n_periods: 12
+monthly_pattern: '^(.+)_mo_(\d{2})$'
+
+columns:
+  - bene_id
+  - msis_id
+  - year
+  - state
+  - source_type
+  - missing_eligibility_data
+  - dual_eligibility_mo_01
+  - dual_eligibility_mo_02
+  - dual_eligibility_mo_03
+  - dual_eligibility_mo_04
+  - dual_eligibility_mo_05
+  - dual_eligibility_mo_06
+  - dual_eligibility_mo_07
+  - dual_eligibility_mo_08
+  - dual_eligibility_mo_09
+  - dual_eligibility_mo_10
+  - dual_eligibility_mo_11
+  - dual_eligibility_mo_12
+  - managed_care_mos_mo_01
+  - managed_care_mos_mo_02
+  - managed_care_mos_mo_03
+  - managed_care_mos_mo_04
+  - managed_care_mos_mo_05
+  - managed_care_mos_mo_06
+  - managed_care_mos_mo_07
+  - managed_care_mos_mo_08
+  - managed_care_mos_mo_09
+  - managed_care_mos_mo_10
+  - managed_care_mos_mo_11
+  - managed_care_mos_mo_12
+  - eligibility_month_ind_mo_01
+  - eligibility_month_ind_mo_02
+  - eligibility_month_ind_mo_03
+  - eligibility_month_ind_mo_04
+  - eligibility_month_ind_mo_05
+  - eligibility_month_ind_mo_06
+  - eligibility_month_ind_mo_07
+  - eligibility_month_ind_mo_08
+  - eligibility_month_ind_mo_09
+  - eligibility_month_ind_mo_10
+  - eligibility_month_ind_mo_11
+  - eligibility_month_ind_mo_12
+  - benefit_scope_mo_01
+  - benefit_scope_mo_02
+  - benefit_scope_mo_03
+  - benefit_scope_mo_04
+  - benefit_scope_mo_05
+  - benefit_scope_mo_06
+  - benefit_scope_mo_07
+  - benefit_scope_mo_08
+  - benefit_scope_mo_09
+  - benefit_scope_mo_10
+  - benefit_scope_mo_11
+  - benefit_scope_mo_12
+  - eligibility_group_mo_01
+  - eligibility_group_mo_02
+  - eligibility_group_mo_03
+  - eligibility_group_mo_04
+  - eligibility_group_mo_05
+  - eligibility_group_mo_06
+  - eligibility_group_mo_07
+  - eligibility_group_mo_08
+  - eligibility_group_mo_09
+  - eligibility_group_mo_10
+  - eligibility_group_mo_11
+  - eligibility_group_mo_12
+  - eligibility_detail_mo_01
+  - eligibility_detail_mo_02
+  - eligibility_detail_mo_03
+  - eligibility_detail_mo_04
+  - eligibility_detail_mo_05
+  - eligibility_detail_mo_06
+  - eligibility_detail_mo_07
+  - eligibility_detail_mo_08
+  - eligibility_detail_mo_09
+  - eligibility_detail_mo_10
+  - eligibility_detail_mo_11
+  - eligibility_detail_mo_12
+  - dual_status_mo_01
+  - dual_status_mo_02
+  - dual_status_mo_03
+  - dual_status_mo_04
+  - dual_status_mo_05
+  - dual_status_mo_06
+  - dual_status_mo_07
+  - dual_status_mo_08
+  - dual_status_mo_09
+  - dual_status_mo_10
+  - dual_status_mo_11
+  - dual_status_mo_12
+  - chip_type_mo_01
+  - chip_type_mo_02
+  - chip_type_mo_03
+  - chip_type_mo_04
+  - chip_type_mo_05
+  - chip_type_mo_06
+  - chip_type_mo_07
+  - chip_type_mo_08
+  - chip_type_mo_09
+  - chip_type_mo_10
+  - chip_type_mo_11
+  - chip_type_mo_12

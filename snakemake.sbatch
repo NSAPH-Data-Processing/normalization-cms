@@ -1,8 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=normalizecms
-#SBATCH --mem=200G    
-#SBATCH --time=24:00:00
-#SBATCH --partition=dominici-large
+#SBATCH --mem=400G    
+#SBATCH --cpus-per-task=8
+#SBATCH --time=2:00:00
+#SBATCH --partition=dominici-xl
 #SBATCH --output=logs/slurm-%j.out
 #SBATCH --error=logs/slurm-%j.err
 
@@ -10,4 +11,4 @@
 
 # Run Snakemake
 snakemake --unlock
-snakemake --cores 2 --rerun-incomplete
+snakemake --cores 1 --rerun-incomplete --forceall

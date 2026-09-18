@@ -1,0 +1,21 @@
+title: Medicaid MAX-TAF Normalization - Enrollments
+description: >
+  Yearly enrollment information for Medicaid beneficiaries 1998-2018
+
+name: enrollments
+path_pattern: "${datapaths.dirs.input}/patient_summary/ps_${year}.parquet"
+output_name: "enrollments_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+columns:
+  - bene_id
+  - msis_id
+  - year
+  - source_type
+  - state
+  - state_case_num
+  - county
+  - zip
+  - missing_eligibility_data
+  
+

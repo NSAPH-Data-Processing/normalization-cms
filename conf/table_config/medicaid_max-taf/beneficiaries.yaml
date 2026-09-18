@@ -1,0 +1,17 @@
+title: Medicaid MAX-TAF Normalization - Beneficiaries
+description: >
+  All beneficiaries enrolled in Medicaid/CHIP at any point from 1998-2018
+
+name: beneficiaries
+path_pattern: "${datapaths.dirs.input}/patient_summary/ps_${year}.parquet"
+output_name: "beneficiaries_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+columns:
+  - bene_id
+  - dob
+  - sex
+  - race
+  - ethnicity
+  - dod
+

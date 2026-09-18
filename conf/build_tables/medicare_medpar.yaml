@@ -1,0 +1,12 @@
+Title: Medicare Medpar Normalization
+description: Normalization of medicare medpar 2000-2022. This file is used to build tables that span multiple years. 
+tables:
+  admissions: 
+    path_pattern: "{basepath}/admissions_{year}.parquet"
+    year_min: 2000
+    year_max: 2022
+    primary_key: 
+      - bene_id
+      - admission_date
+      - discharge_date
+    output_name: admissions_{year_min}_{year_max}

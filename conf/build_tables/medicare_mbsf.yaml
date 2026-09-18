@@ -1,0 +1,20 @@
+Title: Medicare MBSF Normalization
+description: Normalization of medicare 2000-2022. This file is used to build tables that span multiple years. 
+tables:
+  beneficiaries: 
+    path_pattern: "{basepath}/beneficiaries_{year}.parquet"
+    year_min: 2000
+    year_max: 2022
+    primary_key: 
+      - bene_id
+    output_name: beneficiaries_{year_min}_{year_max}
+
+  enrollments: 
+    path_pattern: "{basepath}/enrollments_{year}.parquet"
+    year_min: 2000
+    year_max: 2022
+    primary_key: 
+      - bene_id
+      - year 
+    shard_by: year
+    output_name: enrollments_{year_min}_{year_max}

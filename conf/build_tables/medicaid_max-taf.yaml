@@ -1,0 +1,41 @@
+Title: Medicaid MAX-TAF Normalization
+description: Normalization of medicaid for 1998 - 2018. This file is used to build tables that span multiple years. 
+tables:
+  admissions: 
+    path_pattern: "{basepath}/admissions_{year}.parquet"
+    year_min: 2000
+    year_max: 2001
+    shard_by: year
+    output_name: admissions_{year_min}_{year_max}
+    primary_key: 
+      - bene_id
+      - admission_date
+      - year
+  beneficiaries: 
+    path_pattern: "{basepath}/beneficiaries_{year}.parquet"
+    year_min: 2000
+    year_max: 2001
+    primary_key: 
+        - bene_id
+    output_name: beneficiaries_{year_min}_{year_max}
+  eligibility: 
+    path_pattern: "{basepath}/eligibility_{year}.parquet"
+    year_min: 2000
+    year_max: 2001
+    shard_by: year
+    primary_key: 
+      - bene_id
+      - state
+      - month
+      - year
+    output_name: eligibility_{year_min}_{year_max}
+  # enrollments: 
+  #   path_pattern: "{basepath}/enrollments_{year}.parquet"
+  #   year_min: 2000
+  #   year_max: 2001
+  #   shard_by: year
+  #   output_name: enrollments_{year_min}_{year_max}
+  #   primary_key: 
+  #     - bene_id
+  #     - state
+  #     - year

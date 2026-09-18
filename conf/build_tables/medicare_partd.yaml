@@ -1,0 +1,11 @@
+Title: PartD PDE Normalization
+description: Normalization of PDE for 2016 - 2018. This file is used to build tables that span multiple years. 
+tables:
+  pde: 
+    path_pattern: "{basepath}/pde_{year}.parquet"
+    year_min: 2016
+    year_max: 2018
+    output_name: pde_{year_min}_{year_max}
+    threads: 8
+    shard_by: year
+    memory_limit: "360GB"

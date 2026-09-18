@@ -1,0 +1,30 @@
+title: Medicare MBSF Normalization - Admissions
+description: >
+  All admissions in Medicare Medpar at any point from 2000-2022.
+
+name: admission
+path_pattern: "${datapaths.dirs.input}/ip_${year}.parquet"
+output_name: "admissions_${year}"
+output_dir: "${datapaths.dirs.intermediate}"
+
+columns:
+  - bene_id 
+  - year
+  - admission_date
+  - discharge_date
+  - admission_day_cd
+  - admsn_type_cd
+  - src_admsn_cd
+  - ss_ls_snf_cd
+  - dschrg_dstntn_cd
+  - dschrgcd
+  - diagnoses
+  - los_day_cnt
+  - drg_price_amt
+  - drg_outlier_pmt_amt
+  - pass_thru_amt
+  - mdcr_pmt_amt
+  - bene_blood_ddctbl_amt
+  - bene_prmry_pyr_amt
+  - bene_ip_ddctbl_amt
+  - bene_pta_coinsrnc_amt

@@ -1,17 +1,18 @@
 defaults:
   - _self_
-  - datapaths: medicaid_taf_red
-  - table_config: medicaid_taf/ip_header   # overridden at CLI: table_config=medicaid_taf/beneficiaries
+  - datapaths: medicare_partd_pde
+  - table_config: medicare_partd/pde   # overridden at CLI: table_config=medicaid_taf/beneficiaries
 
 # Used by run_build_tables.py to locate conf/build_tables/{dataset}.yml
-dataset: medicaid_taf
+dataset: medicare_partd
 
 # Used by run_build_tables.py. Overridden at CLI: table=beneficiaries
-table: ip_header
+table: pde
 
 # Used by run_select_variables.py and run_qc.py. Overridden at CLI: year=2018
-year: 2014
+year: 2016
 
 hydra:
   run:
-    dir: ${hydra:runtime.cwd}
+    dir: ${hydra:runtime.cwd}/logs/hydra/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}_${hydra.job.override_dirname}
+

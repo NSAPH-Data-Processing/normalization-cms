@@ -1,0 +1,58 @@
+title: Medicare MBSF Normalization - Enrollments
+description: >
+  Enrollment variables from the demographic eligibility base file for a
+  beneficiary in a given year. Primary keys are bene_id, state, year.
+
+name: enrollments
+
+path_pattern: "${datapaths.dirs.input}/ps/ps_${year}.parquet"
+
+columns:
+  - bene_id
+  - year
+  - zip
+  - state
+  - county
+  - hmo_01
+  - hmo_02
+  - hmo_03
+  - hmo_04
+  - hmo_05
+  - hmo_06
+  - hmo_07
+  - hmo_08
+  - hmo_09
+  - hmo_10
+  - hmo_11
+  - hmo_12
+  - hmo_cvg_count
+  - buyin_01
+  - buyin_02
+  - buyin_03
+  - buyin_04
+  - buyin_05
+  - buyin_06
+  - buyin_07
+  - buyin_08
+  - buyin_09
+  - buyin_10
+  - buyin_11
+  - buyin_12
+  - buyin_cvg_count
+  - dual_01
+  - dual_02
+  - dual_03
+  - dual_04
+  - dual_05
+  - dual_06
+  - dual_07
+  - dual_08
+  - dual_09
+  - dual_10
+  - dual_11
+  - dual_12
+  - dual_mo
+  - curec
+
+output_name: "enrollments_${year}"
+output_dir: "${datapaths.dirs.intermediate}"

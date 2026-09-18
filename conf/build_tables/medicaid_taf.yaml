@@ -15,30 +15,39 @@ tables:
     year_max: 2018
     output_name: ip_line_{year_min}_{year_max}
     primary_key: 
-    - bene_id
-    - clm_id
+      - bene_id
+      - clm_id
   ip_occ: 
     path_pattern: "{basepath}/ip_occ_{year}.parquet"
     year_min: 2014
     year_max: 2018
     output_name: ip_occ_{year_min}_{year_max}
     primary_key: 
-    - bene_id
-    - clm_id
+      - bene_id
+      - clm_id
   beneficiaries: 
     path_pattern: "{basepath}/beneficiaries_{year}.parquet"
     year_min: 2014
     year_max: 2018
     primary_key: 
-      - bene_id
+        - bene_id
     output_name: beneficiaries_{year_min}_{year_max}
-  # eligibility: 
-  #   path_pattern: "{basepath}/eligibility_{year}.parquet"
-  #   year_min: 2014
-  #   year_max: 2018
-  #   output_name: eligibility_{year_min}_{year_max}
-  # enrollments: 
-  #   path_pattern: "{basepath}/enrollments_{year}.parquet"
-  #   year_min: 2014
-  #   year_max: 2018
-  #   output_name: enrollments_{year_min}_{year_max}
+  eligibility: 
+    path_pattern: "{basepath}/eligibility_{year}.parquet"
+    year_min: 2014
+    year_max: 2018
+    primary_key: 
+      - bene_id
+      - state_cd
+      - year
+      - month
+    output_name: eligibility_{year_min}_{year_max}
+  enrollments: 
+    path_pattern: "{basepath}/enrollments_{year}.parquet"
+    year_min: 2014
+    year_max: 2018
+    output_name: enrollments_{year_min}_{year_max}
+    primary_key: 
+      - bene_id
+      - state_cd
+      - year
